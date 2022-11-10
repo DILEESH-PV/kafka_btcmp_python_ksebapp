@@ -50,6 +50,17 @@ while True:
         print("deleted")
     elif(ch==4):
         print("Selected update a consumer")
+        print("Update Consumer selected")
+        consumerid = input("Enter the consumer ie: ")
+        consumerName = input("Enter the consumer name to update: ")
+        consumerAddress = input("Enter the consumer address to update: ")
+        consumerPhone = input("Enter the consumer phone to update: ")
+        consumerEmail = input("Enter the consumer email id to update: ")
+        
+        sql = "UPDATE `consumer` SET `name`='"+consumerName+"',`address`='"+consumerAddress+"',`phone`='"+consumerPhone+"',`email`='"+consumerEmail+"' WHERE `consumerid` = "+consumerid
+        mycursor.execute(sql)
+        mydb.commit()
+        print("Data updated successfully")
     elif(ch==5):
         print("Selected viewall consumer")
     elif(ch==6):
