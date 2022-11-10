@@ -63,6 +63,12 @@ while True:
         print("Data updated successfully")
     elif(ch==5):
         print("Selected viewall consumer")
+        print("View All Consumer selected")
+        sql = "SELECT `consumerid`, `name`, `address`, `phone`, `email` FROM `consumer` "
+        mycursor.execute(sql)
+        result = mycursor.fetchall()
+        for i in result:
+            print(i)
     elif(ch==6):
         print("Selected generate bill")
     elif(ch==7):
