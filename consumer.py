@@ -31,7 +31,16 @@ while True:
             print("db error",e)
         
     elif(ch==2):
-         print("Selected search a consumer")
+        print("Search Consumer selected")
+        sdata = input("Enter the Consumer Code/Name/Phone to search: ")
+        try:
+            sql = "SELECT `consumerid`, `name`, `address`, `phone`, `email` FROM `consumer` WHERE `consumerid` ='"+sdata+"'  OR `name`='"+sdata+"' OR `phone` ='"+sdata+"' "
+            mycursor.execute(sql)
+            result = mycursor.fetchall()
+        except mysql.connector.Error as e:
+            print("error",e)
+        for i in result:
+            print(i)
     elif(ch==3):
         print("Selected delete a consumer")
     elif(ch==4):
