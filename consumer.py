@@ -92,7 +92,7 @@ while True:
             result = mycursor.fetchone()
             sumOfUnit = result[0]
             totalAmount = int(sumOfUnit)*5        
-            invoice = random.randint(10000,100000)
+            invoice = random.randint(10000,99999)
         
             sql = "INSERT INTO `bill`(`consumerid`, `month`, `year`, `bill`, `paidstatus`, `date`, `totalunits`, `duedate`, `invoice`) VALUES (%s,%s,%s,%s,%s,now(),%s,now()+ interval 14 day,%s)"
             data = (conId,currentMonth,currentYear,totalAmount,'0',sumOfUnit,invoice)
