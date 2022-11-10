@@ -1,5 +1,7 @@
 import mysql.connector
 from datetime import datetime
+import random
+from tabulate import tabulate
 try:
     mydb=mysql.connector.connect(host='localhost',user='root',password='',database='ksebdb')
 except mysql.connector.Error as e:
@@ -92,16 +94,10 @@ while True:
             result = mycursor.fetchone()
             sumOfUnit = result[0]
          
-
             totalAmount = int(sumOfUnit)*5
            
-
             invoice = random.randint(10000,100000)
-
-
-
-           
-
+        
             sql = "INSERT INTO `bill`(`consumerid`, `month`, `year`, `bill`, `paidstatus`, `date`, `totalunits`, `duedate`, `invoice`) VALUES (%s,%s,%s,%s,%s,now(),%s,now()+ interval 14 day,%s)"
 
             data = (conId,currentMonth,currentYear,totalAmount,'0',sumOfUnit,invoice)
@@ -109,12 +105,12 @@ while True:
             mycursor.execute(sql,data)
 
             mydb.commit()
-
-
-
-        print("Data inserted successfully")  
-        
+        print("Data inserted successfully")         
     elif(ch==7): 
         print("Selected view all")
+        sql = "SELECT b.`consumerid`, b.`month`, b.`year`, b.`bill`, b.`paidstatus`, b.`date`, b.`totalunits`, b.`duedate`, b.`invoice`, c.`name`, c.`address` FROM bill b JOIN consumer c ON b.consumerid=c.id"
+        mycursor.execute(sql)
+        result = mycursor.fetchall()
+        print(tabulate(result,headers=['consumerid','month','year','bill','paidstatus','date','totalunits','duedate','invoice','name','address'],tablefmt = "psql"))
     elif(ch==8):
         break
