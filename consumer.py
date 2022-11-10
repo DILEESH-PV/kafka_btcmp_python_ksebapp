@@ -43,6 +43,11 @@ while True:
             print(i)
     elif(ch==3):
         print("Selected delete a consumer")
+        consumerid = input("Enter the consumer id to delete: ")
+        sql = "DELETE FROM `consumer` WHERE `consumerid` = "+consumerid
+        mycursor.execute(sql)
+        mydb.commit()
+        print("deleted")
     elif(ch==4):
         print("Selected update a consumer")
     elif(ch==5):
