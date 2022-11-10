@@ -72,27 +72,27 @@ while True:
             print(i)
     elif(ch==6):
         print("Generate Bill selected")
-        consumerCode = input("Enter the consumer code: ")
-        sql = "SELECT `id` FROM `consumer` WHERE `consumerid` = "+consumerCode
+        consumerid = input("Enter the consumer id: ")
+        sql = "SELECT `id` FROM `consumer` WHERE `consumerid` = "+consumerid
         mycursor.execute(sql)
         result = mycursor.fetchone()
         consumerId = result[0]
-        currentMonth = datetime.now().month
-        currentYear = datetime.now().year
-        currentMonth = str(currentMonth)
-        currentYear = str(currentYear)
-        sql = "select SUM(`unit`) from usages where month(date) = '"+currentMonth+"' AND year(date) = '"+currentYear+"' AND `consumerid` ="+str(consumerId)
+        cMonth = datetime.now().month
+        cYear = datetime.now().year
+        cMonth = str(cMonth)
+        cYear = str(cYear)
+        sql = "select SUM(`unit`) from usages where month(date) = '"+cMonth+"' AND year(date) = '"+cYear+"' AND `consumerid` ="+str(consumerId)
         mycursor.execute(sql)
         result = mycursor.fetchone()
         sumOfUnit = result[0]
-        print("Total Unit used : ",sumOfUnit)
+        print("Total Consumed Units  : ",sumOfUnit)
         totalAmount = int(sumOfUnit)*5
-        print("Total amount: ",totalAmount)
+        print("Total Amount          : ",totalAmount)
         sql = "INSERT INTO `bill`(`consumerid`, `month`, `year`, `bill`, `paidstatus`, `date`, `totalunits`) VALUES (%s,%s,%s,%s,%s,now(),%s)"
-        data = (consumerId,currentMonth,currentYear,totalAmount,'0',sumOfUnit)
+        data = (consumerId,cMonth,cYear,totalAmount,'0',sumOfUnit)
         mycursor.execute(sql,data)
         mydb.commit()
-        print("Bill inserted successfully.")
+        print("Bill inserted successfully...")
         
     elif(ch==7): 
         print("Selected view all")
