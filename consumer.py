@@ -1,5 +1,8 @@
 import mysql.connector
-mydb=mysql.connector.connect(host='localhost',user='root',password='',database='ksebdb')
+try:
+    mydb=mysql.connector.connect(host='localhost',user='root',password='',database='ksebdb')
+except mysql.connector.Error as e:
+    print ("db connection error",e)
 mycursor=mydb.cursor()
 while True:
     print("\nSelect an option")
@@ -18,11 +21,14 @@ while True:
         address=input("Enter the consumer address")
         phno=input("Enter the phone number")
         email=input("Enter the email")
-        sql='INSERT INTO `consumer`(`consumerid`, `name`, `address`, `phone`, `email`) VALUES(%s,%s,%s,%s,%s)'
-        data=(consumerid,name,address,phno,email)
-        mycursor.execute(sql,data)
-        mydb.commit()        
-        print("inserted successfully")
+        try:
+            sql='INSERT INTO `consumer`(`consumerid`, `name`, `address`, `phone`, `email`) VALUES(%s,%s,%s,%s,%s)'
+            data=(consumerid,name,address,phno,email)
+            mycursor.execute(sql,data)
+            mydb.commit()        
+            print("inserted successfully")
+        except mysql.connector.Error as e:
+            print("db error",e)
         
     elif(ch==2):
          print("Selected search a consumer")
